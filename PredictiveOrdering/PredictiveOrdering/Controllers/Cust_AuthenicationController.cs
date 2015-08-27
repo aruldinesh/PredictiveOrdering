@@ -123,5 +123,32 @@ namespace PredictiveOrdering.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [HttpPost, ActionName("Validate")]
+        public ActionResult Validate_post()
+        {
+            if (ModelState.IsValid)
+            {
+                Cust_Authenication cust = new Cust_Authenication();
+                TryUpdateModel(cust);
+                if (cust.Cust_Id == null || cust.Cust_Password == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                cust = db.Cust_Authenication.ToList().Find(temp => (temp.Cust_Id == cust.Cust_Id && temp.Cust_Password == cust.Cust_Password));
+                if (cust == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                    return RedirectToAction("Details", new { id = cust.Cust_Id });
+            }
+            return View("Validate");
+        }
+        [HttpGet, ActionName("Validate")]
+        public ActionResult Validate()
+        {
+            return View();
+        }
     }
 }
