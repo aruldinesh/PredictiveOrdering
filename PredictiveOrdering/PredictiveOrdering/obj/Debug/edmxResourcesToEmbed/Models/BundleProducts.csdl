@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cust_Authenication">
+    <Key>
+      <PropertyRef Name="Cust_Id" />
+    </Key>
+    <Property Name="Cust_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cust_Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bundle_Products">
+    <Key>
+      <PropertyRef Name="Bundle_Id" />
+      <PropertyRef Name="Bundle_Type" />
+    </Key>
+    <Property Name="Bundle_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Bundle_Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="PredictiveDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cust_Authenication" EntityType="Self.Cust_Authenication" />
+    <EntitySet Name="Bundle_Products" EntityType="Self.Bundle_Products" />
+    <FunctionImport Name="GETBUNDLEPRODUCTS" ReturnType="Collection(Models.GETBUNDLEPRODUCTS_Result)" />
+  </EntityContainer>
+  <ComplexType Name="GETBUNDLEPRODUCTS_Result">
+    <Property Type="String" Name="Bundle_Id" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Bundle_Type" Nullable="false" MaxLength="20" />
+  </ComplexType>
+</Schema>

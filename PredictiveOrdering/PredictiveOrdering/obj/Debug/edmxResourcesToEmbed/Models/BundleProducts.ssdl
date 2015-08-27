@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PredictiveDB.dbo.Bundle_Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Bundle_Products">
+    <Key>
+      <PropertyRef Name="Bundle_Id" />
+      <PropertyRef Name="Bundle_Type" />
+    </Key>
+    <Property Name="Bundle_Id" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Bundle_Type" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cust_Authenication">
+    <Key>
+      <PropertyRef Name="Cust_Id" />
+    </Key>
+    <Property Name="Cust_Id" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Cust_Password" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Function Name="GETBUNDLEPRODUCTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="ModelsStoreContainer">
+    <EntitySet Name="Cust_Authenication" EntityType="Self.Cust_Authenication" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bundle_Products" EntityType="Self.Bundle_Products" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Bundle_Products].[Bundle_Id] AS [Bundle_Id], 
+[Bundle_Products].[Bundle_Type] AS [Bundle_Type]
+FROM [dbo].[Bundle_Products] AS [Bundle_Products]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PredictiveDB.dbo.Bundle_Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Bundle_Products">
+          <Key>
+            <PropertyRef Name="Bundle_Id" />
+            <PropertyRef Name="Bundle_Type" />
+          </Key>
+          <Property Name="Bundle_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Bundle_Type" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cust_Authenication">
+          <Key>
+            <PropertyRef Name="Cust_Id" />
+          </Key>
+          <Property Name="Cust_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Cust_Password" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Function Name="GETBUNDLEPRODUCTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="ModelsStoreContainer">
+          <EntitySet Name="Cust_Authenication" EntityType="Self.Cust_Authenication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bundle_Products" EntityType="Self.Bundle_Products" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[Bundle_Products].[Bundle_Id] AS [Bundle_Id], 
+[Bundle_Products].[Bundle_Type] AS [Bundle_Type]
+FROM [dbo].[Bundle_Products] AS [Bundle_Products]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cust_Authenication">
+          <Key>
+            <PropertyRef Name="Cust_Id" />
+          </Key>
+          <Property Name="Cust_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cust_Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bundle_Products">
+          <Key>
+            <PropertyRef Name="Bundle_Id" />
+            <PropertyRef Name="Bundle_Type" />
+          </Key>
+          <Property Name="Bundle_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Bundle_Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="PredictiveDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cust_Authenication" EntityType="Self.Cust_Authenication" />
+          <EntitySet Name="Bundle_Products" EntityType="Self.Bundle_Products" />
+          <FunctionImport Name="GETBUNDLEPRODUCTS" ReturnType="Collection(Models.GETBUNDLEPRODUCTS_Result)" />
+        </EntityContainer>
+        <ComplexType Name="GETBUNDLEPRODUCTS_Result">
+          <Property Type="String" Name="Bundle_Id" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Bundle_Type" Nullable="false" MaxLength="20" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="PredictiveDBEntities">
+          <EntitySetMapping Name="Cust_Authenication">
+            <EntityTypeMapping TypeName="Models.Cust_Authenication">
+              <MappingFragment StoreEntitySet="Cust_Authenication">
+                <ScalarProperty Name="Cust_Id" ColumnName="Cust_Id" />
+                <ScalarProperty Name="Cust_Password" ColumnName="Cust_Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bundle_Products">
+            <EntityTypeMapping TypeName="Models.Bundle_Products">
+              <MappingFragment StoreEntitySet="Bundle_Products">
+                <ScalarProperty Name="Bundle_Id" ColumnName="Bundle_Id" />
+                <ScalarProperty Name="Bundle_Type" ColumnName="Bundle_Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GETBUNDLEPRODUCTS" FunctionName="Models.Store.GETBUNDLEPRODUCTS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.GETBUNDLEPRODUCTS_Result">
+                <ScalarProperty Name="Bundle_Id" ColumnName="Bundle_Id" />
+                <ScalarProperty Name="Bundle_Type" ColumnName="Bundle_Type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
